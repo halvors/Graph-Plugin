@@ -1,4 +1,4 @@
-package com.calclavia.graph.mcwrawpper.redstone
+package com.calclavia.graph.mcwrapper.redstone
 
 import com.calclavia.graph.api
 import com.calclavia.graph.api.NodeProvider

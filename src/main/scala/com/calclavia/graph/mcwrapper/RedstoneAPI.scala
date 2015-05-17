@@ -1,7 +1,7 @@
-package com.calclavia.graph.mcwrawpper
+package com.calclavia.graph.mcwrapper
 
 import com.calclavia.graph.api.{Node, NodeManager, NodeProvider}
-import com.calclavia.graph.mcwrawpper.redstone.NodeRedstone
+import com.calclavia.graph.mcwrapper.redstone.NodeRedstone
 import com.resonant.lib.wrapper.WrapFunctions._
 import nova.core.event.EventManager.BlockNeighborChangeEvent
 import nova.core.game.Game

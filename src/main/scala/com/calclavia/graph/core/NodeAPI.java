@@ -5,7 +5,7 @@ import com.calclavia.graph.api.NodeProvider;
 import com.calclavia.graph.core.electric.NodeElectricComponent;
 import com.calclavia.graph.core.electric.NodeElectricJunction;
 import com.calclavia.graph.core.thermal.GridThermal$;
-import com.calclavia.graph.mcwrawpper.RedstoneAPI;
+import com.calclavia.graph.mcwrapper.RedstoneAPI;
 import nova.core.game.Game;
 import nova.core.loader.Loadable;
 import nova.core.loader.NovaMod;
