@@ -15,7 +15,7 @@ For example, a block wants to implement the Redstone graph.
 The block will need to implement NodeProvider. The NodeProvider interface defines a Block as an object that contains a Node.
 
 ```java
-class BlockMachine extends Block, implements NodeProvider {
+class BlockMachine extends Block implements NodeProvider {
 	
 	private NodeRedstone redstoneNode = nodeManager.make(NodeRedstone.class, this);
 	

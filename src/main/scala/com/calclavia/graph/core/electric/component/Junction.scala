@@ -20,5 +20,5 @@ class Junction {
 	/**
 	 * The total resistance of this junction due to wires
 	 */
-	def resistance = wires.map(_.resistance).foldLeft(0d)(_ + _)
+	def resistance = wires.map(_.resistance).sum
 }
