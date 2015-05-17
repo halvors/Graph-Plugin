@@ -15,6 +15,7 @@ For example, a block wants to implement the Redstone graph.
 The block will need to implement NodeProvider. The NodeProvider interface defines a Block as an object that contains a Node.
 
 `
+
 class BlockMachine extends Block, implements NodeProvider {
 	
 	private NodeRedstone redstoneNode = nodeManager.make(NodeRedstone.class, this);
@@ -24,20 +25,25 @@ class BlockMachine extends Block, implements NodeProvider {
 		return Collections.singleton(redstoneNode);
 	}
 }
+
 `
 
 The block can then alter the node's values or read data from the node by accessing methods from the node's interface.
 In this case, if we want to get the block's input redstone power, we call:
 
 `
+
 redstoneNode.getWeakPower();
+
 `
 
 Similar cases apply for other types of nodes. For electric nodes, we can call:
 
 `
+
 electricNode.getPower();
 electricNode.getCurrent();
 electricNode.getVoltage();
 electricNode.getResistance();
+
 `
