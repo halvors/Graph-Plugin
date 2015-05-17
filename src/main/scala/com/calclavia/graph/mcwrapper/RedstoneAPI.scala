@@ -59,7 +59,7 @@ class RedstoneAPI(nodeManager: NodeManager) extends Loadable {
 
 	def getRedstoneNodes(world: World, pos: Vector3i): Set[NodeRedstone] = {
 		val blockOptional = world.getBlock(pos)
-		if (blockOptional.isPresent() && blockOptional.get().isInstanceOf[NodeProvider]) {
+		if (blockOptional.isPresent && blockOptional.get().isInstanceOf[NodeProvider]) {
 			val nodeProvider = blockOptional.get().asInstanceOf[NodeProvider]
 
 			return nodeProvider

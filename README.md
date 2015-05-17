@@ -14,7 +14,7 @@ A Node has connections to other nodes and belongs to a graph. (See http://en.wik
 For example, a block wants to implement the Redstone graph.
 The block will need to implement NodeProvider. The NodeProvider interface defines a Block as an object that contains a Node.
 
-```
+```java
 class BlockMachine extends Block, implements NodeProvider {
 	
 	private NodeRedstone redstoneNode = nodeManager.make(NodeRedstone.class, this);
@@ -29,15 +29,27 @@ class BlockMachine extends Block, implements NodeProvider {
 The block can then alter the node's values or read data from the node by accessing methods from the node's interface.
 In this case, if we want to get the block's input redstone power, we call:
 
-`
+```java
 redstoneNode.getWeakPower();
-`
+```
 
 Similar cases apply for other types of nodes. For electric nodes, we can call:
 
-```
+```java
 electricNode.getPower();
 electricNode.getCurrent();
 electricNode.getVoltage();
 electricNode.getResistance();
+```
+
+Nodes can also have events.
+```java
+redstoneNode.onInputPowerChange(
+	node -> {
+		if (node.getWeakPower > 0)
+			this.setActive(true)
+		else
+			this.setActive(false)
+	}
+)
 ```

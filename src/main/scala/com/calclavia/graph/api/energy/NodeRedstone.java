@@ -3,6 +3,8 @@ package com.calclavia.graph.api.energy;
 import com.calclavia.graph.api.Node;
 import nova.core.block.Block;
 
+import java.util.function.Consumer;
+
 /**
  * A node that can handle Redstone integer-based energy.
  *
@@ -11,6 +13,15 @@ import nova.core.block.Block;
  */
 public interface NodeRedstone extends Node<NodeRedstone> {
 
+	/**
+	 * A callback when redstone power changes in this node.
+	 * @param action - The callback method.
+	 */
+	void onInputPowerChange(Consumer<NodeRedstone> action);
+
+	/**
+	 * @return Gets the strong input power to this node
+	 */
 	int getStrongPower();
 
 	/**
@@ -19,7 +30,7 @@ public interface NodeRedstone extends Node<NodeRedstone> {
 	void setStrongPower(int power);
 
 	/**
-	 * @return The current Redstone energy powered to a specific side of this block.
+	 * @return The Redstone power powered to a specific side of this block.
 	 */
 	int getWeakPower(int side);
 
