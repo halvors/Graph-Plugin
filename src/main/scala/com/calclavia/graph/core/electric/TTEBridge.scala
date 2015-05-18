@@ -1,7 +1,7 @@
 package com.calclavia.graph.core.electric
 
 import cofh.api.energy.IEnergyHandler
-import com.calclavia.graph.api.NodeProvider
+import com.calclavia.graph.api.node.NodeProvider
 import com.resonant.core.energy.{Compatibility, EnergyStorage}
 import net.minecraftforge.common.util.ForgeDirection
 import nova.core.util.Direction

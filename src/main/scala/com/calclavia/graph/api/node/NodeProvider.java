@@ -1,4 +1,4 @@
-package com.calclavia.graph.api;
+package com.calclavia.graph.api.node;
 
 import nova.core.util.Direction;
 

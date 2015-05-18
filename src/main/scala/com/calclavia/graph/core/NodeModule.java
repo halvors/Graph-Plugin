@@ -1,6 +1,6 @@
 package com.calclavia.graph.core;
 
-import com.calclavia.graph.api.NodeManager;
+import com.calclavia.graph.api.node.NodeManager;
 import se.jbee.inject.bind.BinderModule;
 import se.jbee.inject.util.Scoped;
 

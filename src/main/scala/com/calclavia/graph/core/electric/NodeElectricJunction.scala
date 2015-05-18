@@ -1,6 +1,6 @@
 package com.calclavia.graph.core.electric
 
-import com.calclavia.graph.api.NodeProvider
+import com.calclavia.graph.api.node.NodeProvider
 import com.calclavia.graph.core.electric.component.Junction
 
 /**
@@ -14,9 +14,9 @@ class NodeElectricJunction(parent: NodeProvider) extends NodeAbstractElectric(pa
 
 	override def current: Double = voltage * voltage / resistance
 
-	override def voltage: Double = junction.voltage
-
 	override def toString: String = {
 		"ElectricJunction [" + connections.size() + ", " + BigDecimal(voltage).setScale(2, BigDecimal.RoundingMode.HALF_UP) + "V]"
 	}
+
+	override def voltage: Double = junction.voltage
 }

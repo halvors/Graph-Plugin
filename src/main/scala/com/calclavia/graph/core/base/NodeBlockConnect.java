@@ -1,7 +1,7 @@
 package com.calclavia.graph.core.base;
 
-import com.calclavia.graph.api.Node;
-import com.calclavia.graph.api.NodeProvider;
+import com.calclavia.graph.api.node.Node;
+import com.calclavia.graph.api.node.NodeProvider;
 import nova.core.block.Block;
 import nova.core.util.Direction;
 import nova.core.util.exception.NovaException;

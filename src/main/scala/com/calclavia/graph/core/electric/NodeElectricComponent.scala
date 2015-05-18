@@ -2,8 +2,8 @@ package com.calclavia.graph.core.electric
 
 import java.util.{Set => JSet}
 
-import com.calclavia.graph.api.NodeProvider
 import com.calclavia.graph.api.energy.NodeElectric
+import com.calclavia.graph.api.node.NodeProvider
 import com.resonant.wrapper.lib.wrapper.BitmaskWrapper._
 import nova.core.util.Direction
 

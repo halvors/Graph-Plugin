@@ -1,7 +1,7 @@
 package com.calclavia.graph.core.electric
 
-import com.calclavia.graph.api.NodeProvider
 import com.calclavia.graph.api.energy.NodeElectric
+import com.calclavia.graph.api.node.NodeProvider
 import com.calclavia.graph.core.base.NodeBlockConnect
 import com.resonant.wrapper.core.api.tile.DebugInfo
 

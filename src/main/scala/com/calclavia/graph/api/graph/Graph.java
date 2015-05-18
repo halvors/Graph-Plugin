@@ -1,4 +1,4 @@
-package com.calclavia.graph.core.base;
+package com.calclavia.graph.api.graph;
 
 import java.util.Iterator;
 import java.util.List;

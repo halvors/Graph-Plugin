@@ -3,7 +3,8 @@ package com.calclavia.graph.mcwrapper.redstone
 import java.util.function.Consumer
 
 import com.calclavia.graph.api
-import com.calclavia.graph.api.{NodeProvider, energy}
+import com.calclavia.graph.api.energy
+import com.calclavia.graph.api.node.NodeProvider
 import com.calclavia.graph.core.base.NodeBlockConnect
 import net.minecraft.world.World
 import nova.core.block.Block
@@ -41,21 +42,6 @@ class NodeRedstone(parent: NodeProvider) extends NodeBlockConnect[api.energy.Nod
 		world.markChange(position)
 	}
 
-	override def getWeakPower(side: Int): Int = {
-		if (!init) recache()
-		return inputSidedWeakPower(side)
-	}
-
-	override def getWeakPower: Int = {
-		if (!init) recache()
-		return inputWeakPower
-	}
-
-	override def setWeakPower(power: Int) {
-		weakPower = power
-		world.markChange(position)
-	}
-
 	/**
 	 * Recaches the Redstone state.
 	 */
@@ -89,5 +75,20 @@ class NodeRedstone(parent: NodeProvider) extends NodeBlockConnect[api.energy.Nod
 	def mcWorld: World = block.world().asInstanceOf[BWWorld].world()
 
 	def block: Block = parent.asInstanceOf[Block]
+
+	override def getWeakPower(side: Int): Int = {
+		if (!init) recache()
+		return inputSidedWeakPower(side)
+	}
+
+	override def getWeakPower: Int = {
+		if (!init) recache()
+		return inputWeakPower
+	}
+
+	override def setWeakPower(power: Int) {
+		weakPower = power
+		world.markChange(position)
+	}
 
 }

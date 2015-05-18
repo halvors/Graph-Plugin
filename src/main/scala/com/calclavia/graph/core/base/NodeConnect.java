@@ -1,6 +1,6 @@
 package com.calclavia.graph.core.base;
 
-import com.calclavia.graph.api.Node;
+import com.calclavia.graph.api.node.Node;
 import nova.core.util.Direction;
 
 import java.util.function.BiFunction;

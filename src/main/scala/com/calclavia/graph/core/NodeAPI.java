@@ -1,7 +1,7 @@
 package com.calclavia.graph.core;
 
-import com.calclavia.graph.api.NodeManager;
-import com.calclavia.graph.api.NodeProvider;
+import com.calclavia.graph.api.node.NodeManager;
+import com.calclavia.graph.api.node.NodeProvider;
 import com.calclavia.graph.core.electric.NodeElectricComponent;
 import com.calclavia.graph.core.electric.NodeElectricJunction;
 import com.calclavia.graph.core.thermal.GridThermal$;
