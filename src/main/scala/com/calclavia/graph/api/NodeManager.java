@@ -6,6 +6,7 @@ import nova.core.util.Registry;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 
 /**
@@ -45,11 +46,15 @@ public class NodeManager extends Manager<Node<?>, NodeManager.NodeFactory> {
 	 * @return A new node of N type.
 	 */
 	public <N extends Node> N make(Class<N> nodeInterface, Object... args) {
-		return (N) registry.stream()
-						   .filter(n -> nodeInterface.isAssignableFrom(n.getDummy().getClass()))
-						   .findFirst()
-						   .get()
-						   .make(args);
+		Optional<NodeFactory> first = registry.stream()
+			.filter(n -> nodeInterface.isAssignableFrom(n.getDummy().getClass()))
+			.findFirst();
+
+		if (first.isPresent()) {
+			return (N) first.get().make(args);
+		} else {
+			throw new IllegalArgumentException("Attempt to create node that is not registered: " + nodeInterface);
+		}
 	}
 
 	/**

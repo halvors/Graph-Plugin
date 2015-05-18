@@ -5,7 +5,7 @@ import com.calclavia.graph.mcwrapper.redstone.NodeRedstone
 import com.resonant.lib.wrapper.WrapFunctions._
 import nova.core.event.EventManager.BlockNeighborChangeEvent
 import nova.core.game.Game
-import nova.core.loader.Loadable
+import nova.core.loader.{Loadable, NativeLoader}
 import nova.core.util.Direction
 import nova.core.util.transform.Vector3i
 import nova.core.world.World
@@ -15,9 +15,10 @@ import nova.wrapper.mc1710.util.WrapperEventManager.{RedstoneConnectEvent, Redst
 import scala.collection.convert.wrapAll._
 
 /**
+ * The Minecraft native loader
  * @author Calclavia
  */
-//TODO: Use @ForGame("minecraft") Annotation to auto-load
+@NativeLoader(forGame = "minecraft")
 class RedstoneAPI(nodeManager: NodeManager) extends Loadable {
 
 	override def preInit() {
