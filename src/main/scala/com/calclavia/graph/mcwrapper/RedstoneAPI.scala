@@ -46,13 +46,13 @@ class RedstoneAPI(componentManager: ComponentManager) extends Loadable {
 
 		WrapperEventManager.instance.onStrongPower.add(
 			(evt: RedstoneEvent) => {
-				evt.power = getRedstoneNodes(evt.world, evt.position).map(_.strongPower).max
+				evt.power = getRedstoneNodes(evt.world, evt.position).map(_.strongPower).foldLeft(0)(_.max(_))
 			}
 		)
 
 		WrapperEventManager.instance.onWeakPower.add(
 			(evt: RedstoneEvent) => {
-				evt.power = getRedstoneNodes(evt.world, evt.position).map(_.weakPower).max
+				evt.power = getRedstoneNodes(evt.world, evt.position).map(_.weakPower).foldLeft(0)(_.max(_))
 			}
 		)
 	}
