@@ -1,12 +1,11 @@
 package com.calclavia.graph.mcwrapper
 
-import com.calclavia.graph.api.node.{Node, NodeManager, NodeProvider}
 import com.calclavia.graph.mcwrapper.redstone.NodeRedstone
 import com.resonant.lib.wrapper.WrapFunctions._
+import nova.core.component.{Component, ComponentManager, ComponentProvider}
 import nova.core.event.EventManager.BlockNeighborChangeEvent
 import nova.core.game.Game
 import nova.core.loader.{Loadable, NativeLoader}
-import nova.core.util.Direction
 import nova.core.util.transform.vector.Vector3i
 import nova.core.world.World
 import nova.wrapper.mc1710.util.WrapperEventManager
@@ -19,16 +18,16 @@ import scala.collection.convert.wrapAll._
  * @author Calclavia
  */
 @NativeLoader(forGame = "minecraft")
-class RedstoneAPI(nodeManager: NodeManager) extends Loadable {
+class RedstoneAPI(componentManager: ComponentManager) extends Loadable {
 
 	override def preInit() {
 		//Registers Redstone Node
-		nodeManager.register(
-			func[Array[AnyRef], Node[_]]((args) => {
+		componentManager.register(
+			func[Array[AnyRef], Component]((args) => {
 				if (args.length > 0) {
-					new NodeRedstone(args(0).asInstanceOf[NodeProvider]).asInstanceOf[Node[_]]
+					new NodeRedstone(args(0).asInstanceOf[ComponentProvider])
 				} else {
-					new NodeRedstone(null).asInstanceOf[Node[_]]
+					new NodeRedstone(null)
 				}
 			}))
 
@@ -60,11 +59,11 @@ class RedstoneAPI(nodeManager: NodeManager) extends Loadable {
 
 	def getRedstoneNodes(world: World, pos: Vector3i): Set[NodeRedstone] = {
 		val blockOptional = world.getBlock(pos)
-		if (blockOptional.isPresent && blockOptional.get().isInstanceOf[NodeProvider]) {
-			val nodeProvider = blockOptional.get().asInstanceOf[NodeProvider]
+		if (blockOptional.isPresent && blockOptional.get().isInstanceOf[ComponentProvider]) {
+			val nodeProvider = blockOptional.get().asInstanceOf[ComponentProvider]
 
 			return nodeProvider
-				.getNodes(Direction.UNKNOWN)
+				.components()
 				.collect { case n: NodeRedstone => n }
 				.toSet
 		}

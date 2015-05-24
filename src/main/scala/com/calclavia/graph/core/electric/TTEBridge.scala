@@ -1,9 +1,9 @@
 package com.calclavia.graph.core.electric
 
 import cofh.api.energy.IEnergyHandler
-import com.calclavia.graph.api.node.NodeProvider
 import com.resonant.core.energy.{Compatibility, EnergyStorage}
 import net.minecraftforge.common.util.ForgeDirection
+import nova.core.component.ComponentProvider
 import nova.core.util.Direction
 
 /**
@@ -11,7 +11,7 @@ import nova.core.util.Direction
  * @author Calclavia
  */
 @deprecated
-trait TTEBridge extends NodeProvider with IEnergyHandler {
+trait TTEBridge extends ComponentProvider with IEnergyHandler {
 
 	val electricNode = new NodeElectricComponent(this)
 	val energy: EnergyStorage

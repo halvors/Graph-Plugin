@@ -1,8 +1,8 @@
 package com.calclavia.graph.core.base;
 
 import com.calclavia.graph.api.node.Node;
-import com.calclavia.graph.api.node.NodeProvider;
 import nova.core.block.Block;
+import nova.core.component.ComponentProvider;
 import nova.core.util.Direction;
 import nova.core.util.exception.NovaException;
 import nova.core.util.transform.vector.Vector3i;
@@ -21,12 +21,12 @@ import java.util.stream.Collectors;
  */
 public abstract class NodeBlockConnect<N extends Node<?>> extends NodeConnect<N> {
 
-	public final NodeProvider parent;
+	public final ComponentProvider provider;
 	//The cached connection map
 	protected Map<N, Direction> connectedMap;
 
-	public NodeBlockConnect(NodeProvider parent) {
-		this.parent = parent;
+	public NodeBlockConnect(ComponentProvider parent) {
+		this.provider = parent;
 	}
 
 	@Override
@@ -57,31 +57,36 @@ public abstract class NodeBlockConnect<N extends Node<?>> extends NodeConnect<N>
 
 	protected Map<Direction, Optional<Block>> adjacentBlocks() {
 		return Arrays.stream(Direction.DIRECTIONS)
-					 .collect(Collectors.toMap(Function.identity(), dir -> world().getBlock(position().add(dir.toVector()))));
+			.collect(Collectors.toMap(Function.identity(), dir -> world().getBlock(position().add(dir.toVector()))));
 	}
 
 	protected N getNodeFromBlock(Block block, Direction from) {
-		if (block instanceof NodeProvider) {
-			return (N) ((NodeProvider) block).getNodes(from)
-											 .stream()
-											 .filter(n -> compareClass().isAssignableFrom(n.getClass()))
-											 .findFirst()
-											 .orElse(null);
+		if (block instanceof ComponentProvider) {
+			return (N) block.components()
+				.stream()
+				.filter(n -> compareClass().isAssignableFrom(n.getClass()))
+				.findFirst()
+				.orElse(null);
 		}
 
 		return null;
 	}
 
+	@Override
+	public ComponentProvider provider() {
+		return provider;
+	}
+
 	public World world() {
-		if (parent instanceof Block) {
-			return ((Block) parent).world();
+		if (provider instanceof Block) {
+			return ((Block) provider).world();
 		}
 		throw new NovaException("NodeProvider type not supported.");
 	}
 
 	public Vector3i position() {
-		if (parent instanceof Block) {
-			return ((Block) parent).position();
+		if (provider instanceof Block) {
+			return ((Block) provider).position();
 		}
 		throw new NovaException("NodeProvider type not supported.");
 	}

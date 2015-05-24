@@ -3,8 +3,8 @@ package com.calclavia.graph.core.electric
 import java.util.{Set => JSet}
 
 import com.calclavia.graph.api.energy.NodeElectric
-import com.calclavia.graph.api.node.NodeProvider
 import com.resonant.wrapper.lib.wrapper.BitmaskWrapper._
+import nova.core.component.ComponentProvider
 import nova.core.util.Direction
 
 import scala.collection.convert.wrapAll._
@@ -18,7 +18,7 @@ import scala.collection.convert.wrapAll._
  *
  * @author Calclavia
  */
-class NodeElectricComponent(parent: NodeProvider) extends NodeAbstractElectric(parent) with com.calclavia.graph.api.energy.NodeElectricComponent {
+class NodeElectricComponent(parent: ComponentProvider) extends NodeAbstractElectric(parent) with com.calclavia.graph.api.energy.NodeElectricComponent {
 
 	/**
 	 * The current and voltage values are set are determined by the DC Grid
