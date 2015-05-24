@@ -7,7 +7,7 @@ import nova.core.event.EventManager.BlockNeighborChangeEvent
 import nova.core.game.Game
 import nova.core.loader.{Loadable, NativeLoader}
 import nova.core.util.Direction
-import nova.core.util.transform.Vector3i
+import nova.core.util.transform.vector.Vector3i
 import nova.core.world.World
 import nova.wrapper.mc1710.util.WrapperEventManager
 import nova.wrapper.mc1710.util.WrapperEventManager.{RedstoneConnectEvent, RedstoneEvent}

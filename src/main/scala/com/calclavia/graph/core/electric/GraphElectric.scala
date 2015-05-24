@@ -6,7 +6,7 @@ import com.calclavia.graph.core.electric.component.{Junction, VirtualJunction}
 import com.resonant.core.prefab.block.Updater
 import com.resonant.lib.math.matrix.AdjacencyMatrix
 import nova.core.game.Game
-import nova.core.util.transform.Matrix
+import nova.core.util.transform.matrix.Matrix
 
 import scala.collection.convert.wrapAll._
 

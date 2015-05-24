@@ -3,7 +3,7 @@ package com.calclavia.graph.core.thermal
 import net.minecraft.block.material.Material
 import net.minecraft.world.World
 import net.minecraftforge.fluids.FluidStack
-import nova.core.util.transform.Vector3d
+import nova.core.util.transform.vector.Vector3d
 
 /**
  * A thermal block manager

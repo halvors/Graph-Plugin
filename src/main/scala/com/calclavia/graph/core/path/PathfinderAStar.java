@@ -1,7 +1,7 @@
 package com.calclavia.graph.core.path;
 
 import nova.core.util.Direction;
-import nova.core.util.transform.Vector3d;
+import nova.core.util.transform.vector.Vector3d;
 
 import java.util.HashMap;
 import java.util.HashSet;

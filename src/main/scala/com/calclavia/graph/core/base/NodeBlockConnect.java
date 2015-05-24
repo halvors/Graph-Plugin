@@ -5,7 +5,7 @@ import com.calclavia.graph.api.node.NodeProvider;
 import nova.core.block.Block;
 import nova.core.util.Direction;
 import nova.core.util.exception.NovaException;
-import nova.core.util.transform.Vector3i;
+import nova.core.util.transform.vector.Vector3i;
 import nova.core.world.World;
 
 import java.util.Arrays;

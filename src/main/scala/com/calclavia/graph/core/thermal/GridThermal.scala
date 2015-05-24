@@ -3,7 +3,7 @@ package com.calclavia.graph.core.thermal
 import com.resonant.core.prefab.block.Updater
 import nova.core.game.Game
 import nova.core.util.Direction
-import nova.core.util.transform.Vector3i
+import nova.core.util.transform.vector.Vector3i
 import nova.core.world.World
 
 import scala.collection.mutable
