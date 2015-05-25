@@ -60,7 +60,13 @@ class NodeElectricComponent(parent: ComponentProvider) extends NodeAbstractElect
 		connectionMask = positiveMask | negativeMask
 	}
 
-	def setPositives(dirs: JSet[Direction]) {
+	def setNegative(dir: Direction, open: Boolean = true) {
+		negativeMask = negativeMask.mask(dir, open)
+		positiveMask &= ~negativeMask
+		connectionMask = positiveMask | negativeMask
+	}
+
+	override def setPositives(dirs: Direction*){
 		positiveMask = 0
 
 		dirs.foreach(dir => positiveMask = positiveMask.mask(dir, true))
@@ -68,13 +74,7 @@ class NodeElectricComponent(parent: ComponentProvider) extends NodeAbstractElect
 		connectionMask = positiveMask | negativeMask
 	}
 
-	def setNegative(dir: Direction, open: Boolean = true) {
-		negativeMask = negativeMask.mask(dir, open)
-		positiveMask &= ~negativeMask
-		connectionMask = positiveMask | negativeMask
-	}
-
-	def setNegatives(dirs: JSet[Direction]) {
+	override def setNegatives(dirs: Direction*){
 		negativeMask = 0
 
 		dirs.foreach(dir => negativeMask = negativeMask.mask(dir, true))

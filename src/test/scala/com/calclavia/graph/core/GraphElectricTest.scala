@@ -371,12 +371,12 @@ class GraphElectricTest {
 
 		def connectPos(nodeElectricComponent: NodeElectric) {
 			connectedMap += (nodeElectricComponent -> Direction.NORTH)
-			setPositive(Direction.NORTH)
+			setPositives(Direction.NORTH)
 		}
 
 		def connectNeg(nodeElectricComponent: NodeElectric) {
 			connectedMap += (nodeElectricComponent -> Direction.SOUTH)
-			setNegative(Direction.SOUTH)
+			setNegatives(Direction.SOUTH)
 		}
 
 		override def connections(): util.Set[NodeElectric] = connectedMap.keySet()
