@@ -2,6 +2,7 @@ package com.calclavia.graph.mcwrapper
 
 import com.calclavia.graph.mcwrapper.redstone.NodeRedstone
 import com.resonant.lib.wrapper.WrapFunctions._
+import nova.core.block.Block
 import nova.core.component.{Component, ComponentManager, ComponentProvider}
 import nova.core.event.EventManager.BlockNeighborChangeEvent
 import nova.core.game.Game
@@ -25,7 +26,7 @@ class RedstoneAPI(componentManager: ComponentManager) extends Loadable {
 		componentManager.register(
 			func[Array[AnyRef], Component]((args) => {
 				if (args.length > 0) {
-					new NodeRedstone(args(0).asInstanceOf[ComponentProvider])
+					new NodeRedstone(args(0).asInstanceOf[Block])
 				} else {
 					new NodeRedstone(null)
 				}
@@ -40,7 +41,7 @@ class RedstoneAPI(componentManager: ComponentManager) extends Loadable {
 		WrapperEventManager.instance.onCanConnect.add(
 			(evt: RedstoneConnectEvent) => {
 				//TODO: Null may cause an issue
-				evt.canConnect = getRedstoneNodes(evt.world, evt.position).exists(_.canConnect(null, evt.direction))
+				evt.canConnect = getRedstoneNodes(evt.world, evt.position).exists(_._canConnect(null, evt.direction))
 			}
 		)
 

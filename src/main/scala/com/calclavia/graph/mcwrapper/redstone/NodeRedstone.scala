@@ -7,7 +7,6 @@ import com.calclavia.graph.api.energy
 import com.calclavia.graph.core.base.NodeBlockConnect
 import net.minecraft.world.World
 import nova.core.block.Block
-import nova.core.component.ComponentProvider
 import nova.wrapper.mc1710.backward.world.BWWorld
 
 /**
@@ -15,17 +14,15 @@ import nova.wrapper.mc1710.backward.world.BWWorld
  * @author Calclavia
  */
 //TODO: Create NodeVirtualRedstone (for MC blocks that are redstone, but don't implement NOVA)
-class NodeRedstone(parent: ComponentProvider) extends NodeBlockConnect[api.energy.NodeRedstone](parent) with api.energy.NodeRedstone {
+class NodeRedstone(parent: Block) extends api.energy.NodeRedstone with NodeBlockConnect[api.energy.NodeRedstone] {
 
+	override protected val block: Block = parent
 	var init = false
-
 	var inputStrongPower = 0
 	var inputWeakPower = 0
 	var inputSidedWeakPower = Array(0, 0, 0, 0, 0, 0)
-
 	var strongPower = 0
 	var weakPower = 0
-
 	var onPowerChange: Consumer[energy.NodeRedstone] = null
 
 	override def onInputPowerChange(action: Consumer[energy.NodeRedstone]): Unit = {
@@ -45,6 +42,11 @@ class NodeRedstone(parent: ComponentProvider) extends NodeBlockConnect[api.energ
 	override def getWeakPower(side: Int): Int = {
 		if (!init) recache()
 		return inputSidedWeakPower(side)
+	}
+
+	override def getWeakPower: Int = {
+		if (!init) recache()
+		return inputWeakPower
 	}
 
 	/**
@@ -78,13 +80,6 @@ class NodeRedstone(parent: ComponentProvider) extends NodeBlockConnect[api.energ
 	}
 
 	def mcWorld: World = block.world().asInstanceOf[BWWorld].world()
-
-	def block: Block = parent.asInstanceOf[Block]
-
-	override def getWeakPower: Int = {
-		if (!init) recache()
-		return inputWeakPower
-	}
 
 	override def setWeakPower(power: Int) {
 		weakPower = power

@@ -8,14 +8,18 @@ import nova.core.util.Direction;
  * Constructor requirement: Provider (An instance of {@link Block}
  * @author Calclavia
  */
-public interface NodeElectricComponent extends NodeElectric {
+public abstract class NodeElectricComponent extends NodeElectric {
 
-	void setPositives(Direction... dirs);
+	public NodeElectricComponent(Block provider) {
+		super(provider);
+	}
 
-	void setNegatives(Direction... dirs);
+	public abstract void setPositives(Direction... dirs);
+
+	public abstract void setNegatives(Direction... dirs);
 
 	@Override
-	default String getID() {
+	public final String getID() {
 		return "electricComponent";
 	}
 }

@@ -7,10 +7,14 @@ import nova.core.block.Block;
  * Constructor requirement: Provider (An instance of {@link Block}
  * @author Calclavia
  */
-public interface NodeElectricJunction extends NodeElectric {
+public abstract class NodeElectricJunction extends NodeElectric {
+
+	public NodeElectricJunction(Block provider) {
+		super(provider);
+	}
 
 	@Override
-	default String getID() {
+	public final String getID() {
 		return "electricJunction";
 	}
 }
