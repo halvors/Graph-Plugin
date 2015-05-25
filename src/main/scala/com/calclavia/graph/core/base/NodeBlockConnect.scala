@@ -44,7 +44,7 @@ trait NodeBlockConnect[N <: Node[N]] extends NodeConnect[N] {
 
 	def world: World = block.world()
 
-	def position: Vector3i = block.position
+	def position: Vector3i = block.transform.position
 
 	protected def getNodeFromBlock(block: Block, from: Direction): N = block.get(compareClass).orElse(null.asInstanceOf[N])
 
