@@ -4,8 +4,6 @@ import com.calclavia.graph.mcwrapper.redstone.NodeRedstone
 import com.resonant.lib.wrapper.WrapFunctions._
 import nova.core.block.Block
 import nova.core.component.{Component, ComponentManager, ComponentProvider}
-import nova.core.event.EventManager.BlockNeighborChangeEvent
-import nova.core.game.Game
 import nova.core.loader.{Loadable, NativeLoader}
 import nova.core.util.transform.vector.Vector3i
 import nova.core.world.World
@@ -31,12 +29,6 @@ class RedstoneAPI(componentManager: ComponentManager) extends Loadable {
 					new NodeRedstone(null)
 				}
 			}))
-
-		Game.instance.eventManager.blockNeighborChange.add(
-			(evt: BlockNeighborChangeEvent) => {
-				getRedstoneNodes(evt.world, evt.position).foreach(_.recache())
-			}
-		)
 
 		WrapperEventManager.instance.onCanConnect.add(
 			(evt: RedstoneConnectEvent) => {

@@ -5,8 +5,10 @@ import java.util.function.Consumer
 import com.calclavia.graph.api
 import com.calclavia.graph.api.energy
 import com.calclavia.graph.core.base.NodeBlockConnect
+import com.resonant.lib.wrapper.WrapFunctions._
 import net.minecraft.world.World
 import nova.core.block.Block
+import nova.core.block.Block.NeighborChangeEvent
 import nova.wrapper.mc1710.backward.world.BWWorld
 
 /**
@@ -24,6 +26,9 @@ class NodeRedstone(parent: Block) extends api.energy.NodeRedstone with NodeBlock
 	var strongPower = 0
 	var weakPower = 0
 	var onPowerChange: Consumer[energy.NodeRedstone] = null
+
+	//Hook into the block's events.
+	parent.neighborChangeEvent.add((evt: NeighborChangeEvent) => recache())
 
 	override def onInputPowerChange(action: Consumer[energy.NodeRedstone]): Unit = {
 		onPowerChange = action
