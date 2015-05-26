@@ -26,7 +26,10 @@ class RedstoneAPI(componentManager: ComponentManager) extends Loadable {
 				if (args.length > 0) {
 					new NodeRedstone(args(0).asInstanceOf[Block])
 				} else {
-					new NodeRedstone(null)
+					//TODO: -1000 style points!
+					new NodeRedstone(new Block {
+						override def getID: String = "dummy"
+					})
 				}
 			}))
 
