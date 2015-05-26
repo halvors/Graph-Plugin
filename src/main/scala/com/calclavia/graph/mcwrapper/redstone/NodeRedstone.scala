@@ -9,7 +9,7 @@ import com.resonant.lib.wrapper.WrapFunctions._
 import net.minecraft.world.World
 import nova.core.block.Block
 import nova.core.block.Block.NeighborChangeEvent
-import nova.wrapper.mc1710.backward.world.BWWorld
+import nova.wrapper.mc1710.wrapper.block.world.BWWorld
 
 /**
  * A Minecraft implementation that wraps Redstone to a Node
