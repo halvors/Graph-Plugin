@@ -16,9 +16,11 @@ import scala.collection.convert.wrapAll._
  */
 trait NodeBlockConnect[N <: Node[N]] extends NodeConnect[N] {
 	protected val block: Block
+	//TODO: Remove
 	protected var connectedMap: JMap[N, Direction] = null
 
-	def connections: JSet[N] = {
+	//TODO: Expose to Java side
+	protected var getConnections: () => JSet[N] = () => {
 		val adjacentBlocks: Map[Direction, Optional[Block]] = getAdjacentBlocks
 		val adjacentNodes: Map[Direction, N] =
 			adjacentBlocks
@@ -29,7 +31,6 @@ trait NodeBlockConnect[N <: Node[N]] extends NodeConnect[N] {
 			.filter { case (k, v) => canConnect(v, k) }
 			.filter { case (k, v) => v.asInstanceOf[NodeConnect[N]].canConnect(this.asInstanceOf[N], k.opposite) }
 			.map(_.swap)
-			.toMap
 			.asInstanceOf[JMap[N, Direction]]
 
 		connectedMask = connectedMap.values
@@ -37,8 +38,15 @@ trait NodeBlockConnect[N <: Node[N]] extends NodeConnect[N] {
 			.map(i => 1 << i)
 			.foldLeft(0)((a, b) => a | b)
 
-		return connectedMap.keySet
+		connectedMap.keySet
 	}
+
+	def setConnectionHandler(conFunction: () => JSet[N]): this.type = {
+		getConnections = conFunction
+		return this
+	}
+
+	def connections: JSet[N] = getConnections()
 
 	protected def getAdjacentBlocks: Map[Direction, Optional[Block]] = Direction.DIRECTIONS.map(dir => (dir, world.getBlock(position + dir.toVector))).toMap
 

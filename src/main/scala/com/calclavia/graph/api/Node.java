@@ -10,7 +10,7 @@ import java.util.Set;
 public abstract class Node<CONNECTION extends Node<?>> extends Component {
 
 	/**
-	 * Gets a list of getNodes connected to this node.
+	 * Gets a list of nodes connected to this node.
 	 */
 	public abstract Set<CONNECTION> connections();
 }
