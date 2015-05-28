@@ -16,7 +16,7 @@ class NodeElectricJunction(parent: Block) extends com.calclavia.graph.api.energy
 	override def current: Double = voltage * voltage / resistance
 
 	override def toString: String = {
-		"ElectricJunction [" + connections.size() + ", " + BigDecimal(voltage).setScale(2, BigDecimal.RoundingMode.HALF_UP) + "V]"
+		"ElectricJunction [" + BigDecimal(voltage).setScale(2, BigDecimal.RoundingMode.HALF_UP) + "V]"
 	}
 
 	override def voltage: Double = junction.voltage
