@@ -1,4 +1,4 @@
-package com.calclavia.graph.api.graph;
+package com.calclavia.graph.graph;
 
 import java.util.Iterator;
 import java.util.List;

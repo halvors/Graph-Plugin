@@ -1,9 +1,8 @@
-package com.calclavia.graph.core.base
+package com.calclavia.graph.graph
 
 import java.util.{List => JList, Set => JSet}
 
-import com.calclavia.graph.api.Node
-import com.calclavia.graph.api.graph.Graph
+import com.calclavia.graph.node.Node
 import com.resonant.lib.math.matrix.AdjacencyMatrix
 
 import scala.collection.JavaConversions._

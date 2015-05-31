@@ -1,4 +1,4 @@
-package com.calclavia.graph.core.path;
+package com.calclavia.graph.path;
 
 import nova.core.util.Direction;
 import nova.core.util.transform.vector.Vector3d;

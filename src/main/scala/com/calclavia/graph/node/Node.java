@@ -1,4 +1,4 @@
-package com.calclavia.graph.api;
+package com.calclavia.graph.node;
 
 import java.util.Set;
 
