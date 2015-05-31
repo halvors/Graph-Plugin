@@ -9,20 +9,20 @@ import org.junit.Test
 class SparseMatrixTest {
 
 	@Test
-	def testPrint() {
+	def testConstruction() {
 		val mat = new SparseMatrix[Int, Int]((0 until 5).toSet, (0 until 5).toSet)
-		assertThat("SparseMatrix [5x5]\n  | 0 1 2 3 4 \n0 | 0 0 0 0 0 \n1 | 0 0 0 0 0 \n2 | 0 0 0 0 0 \n3 | 0 0 0 0 0 \n4 | 0 0 0 0 0 \n").isEqualTo(mat.toString)
+		(0 until 5).foreach(x => (0 until 5).foreach(y => assertThat(mat(x, y)).isEqualTo(0)))
 	}
 
 	@Test
-	def testApply() = {
+	def testApply() {
 		val mat = new SparseMatrix[Int, Int]((0 until 5).toSet, (0 until 5).toSet)
 		mat(2, 3) = 5
-		assertThat("SparseMatrix [5x5]\n  | 0 1 2 3 4 \n0 | 0 0 0 0 0 \n1 | 0 0 0 0 0 \n2 | 0 0 0 5 0 \n3 | 0 0 0 0 0 \n4 | 0 0 0 0 0 \n").isEqualTo(mat.toString)
+		assertThat(mat(2, 3)).isEqualTo(5)
 	}
 
 	@Test
-	def testGet() = {
+	def testGet() {
 		val mat = new SparseMatrix[Int, Int]((0 until 5).toSet, (0 until 5).toSet)
 		mat(2, 3) = 5
 		assertThat(5).isEqualTo(mat(2, 3))
