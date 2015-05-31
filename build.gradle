@@ -35,6 +35,7 @@ repositories {
 }
 
 dependencies {
+	compile 'org.scala-lang:scala-library:2.11.6'
 	compile 'com.google.guava:guava:18.0'
 	compile 'org.msgpack:msgpack-core:0.7.0-p4'
 	compile 'com.typesafe:config:1.2.1'
@@ -42,6 +43,7 @@ dependencies {
 	compile 'org.slf4j:slf4j-api:1.7.10'
 	compile group: "nova.core", name: "NovaCore", version: novaVersion, changing: true
 
+	testCompile 'org.scala-lang:scala-library:2.11.6'
 	testCompile group: "nova.core", name: "NovaCore", version: novaVersion, classifier: "wrappertests", changing: true
 	testCompile "junit:junit:4.12"
 	testCompile 'org.assertj:assertj-core:3.0.0'
