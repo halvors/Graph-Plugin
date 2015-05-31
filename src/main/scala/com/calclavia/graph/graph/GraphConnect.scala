@@ -3,7 +3,7 @@ package com.calclavia.graph.graph
 import java.util.{List => JList, Set => JSet}
 
 import com.calclavia.graph.node.Node
-import com.resonant.lib.math.matrix.AdjacencyMatrix
+import com.calclavia.graph.matrix.AdjacencyMatrix
 
 import scala.collection.JavaConversions._
 
