@@ -3,8 +3,7 @@ package com.calclavia.graph.core
 import java.util
 import com.calclavia.graph.api.energy.NodeElectric
 import com.calclavia.graph.core.electric.{GraphElectric, NodeElectricComponent, NodeElectricJunction}
-import com.resonant.wrapper.core.debug.Profiler
-import nova.core.util.Direction
+import nova.core.util.{Profiler, Direction}
 import org.junit.Assert._
 import org.junit.Test
 
@@ -73,7 +72,7 @@ class GraphElectricTest {
 		for (trial <- 1 to 1000) {
 			val voltage = trial * 10d * Math.random()
 			battery.setVoltage(voltage)
-			graph.update(profiler.delta)
+			graph.update(profiler.elapsed)
 
 			//Test battery
 			assertEquals(voltage, battery.voltage, error)
@@ -84,7 +83,7 @@ class GraphElectricTest {
 			profiler.lap()
 		}
 
-		profiler.printAverage()
+		println(profiler.average())
 	}
 
 	/**
@@ -119,7 +118,7 @@ class GraphElectricTest {
 		for (trial <- 1 to 1000) {
 			val voltage = trial * 10d * Math.random()
 			battery.setVoltage(voltage)
-			graph.update(profiler.delta)
+			graph.update(profiler.elapsed)
 
 			val current = voltage / 3d
 			//Test battery
@@ -134,7 +133,34 @@ class GraphElectricTest {
 			profiler.lap()
 		}
 
-		profiler.printAverage()
+		print(profiler.average())
+	}
+
+	/**
+	 * Connects a sequence of electric nodes in series excluding the first and last connection.
+	 */
+	def connectInSeries(series: NodeElectric*): Seq[NodeElectric] = {
+		series.zipWithIndex.foreach {
+			case (component: DummyComponent, index) =>
+				index match {
+					case 0 => component.connectPos(series(index + 1))
+					case l if l == series.size - 1 =>
+						component.connectNeg(series(index - 1))
+					case _ =>
+						component.connectNeg(series(index - 1))
+						component.connectPos(series(index + 1))
+				}
+			case (wire: DummyWire, index) =>
+				index match {
+					case 0 => wire.connect(series(index + 1))
+					case l if l == series.size - 1 =>
+						wire.connect(series(index - 1))
+					case _ =>
+						wire.connect(series(index - 1))
+						wire.connect(series(index + 1))
+				}
+		}
+		return series
 	}
 
 	/**
@@ -184,7 +210,7 @@ class GraphElectricTest {
 		for (trial <- 1 to 1000) {
 			val voltage = trial * 10d * Math.random()
 			battery.setVoltage(voltage)
-			graph.update(profiler.delta)
+			graph.update(profiler.elapsed)
 
 			//Test battery
 			assertEquals(voltage, battery.voltage, error)
@@ -211,34 +237,7 @@ class GraphElectricTest {
 			profiler.lap()
 		}
 
-		profiler.printAverage()
-	}
-
-	/**
-	 * Connects a sequence of electric nodes in series excluding the first and last connection.
-	 */
-	def connectInSeries(series: NodeElectric*): Seq[NodeElectric] = {
-		series.zipWithIndex.foreach {
-			case (component: DummyComponent, index) =>
-				index match {
-					case 0 => component.connectPos(series(index + 1))
-					case l if l == series.size - 1 =>
-						component.connectNeg(series(index - 1))
-					case _ =>
-						component.connectNeg(series(index - 1))
-						component.connectPos(series(index + 1))
-				}
-			case (wire: DummyWire, index) =>
-				index match {
-					case 0 => wire.connect(series(index + 1))
-					case l if l == series.size - 1 =>
-						wire.connect(series(index - 1))
-					case _ =>
-						wire.connect(series(index - 1))
-						wire.connect(series(index + 1))
-				}
-		}
-		return series
+		println(profiler.average)
 	}
 
 	/**
@@ -313,12 +312,12 @@ class GraphElectricTest {
 			val voltage = trial * 10d * Math.random()
 			battery1.setVoltage(voltage)
 			battery2.setVoltage(voltage)
-			graph.update(profiler.delta)
+			graph.update(profiler.elapsed)
 			//TODO: Test results
 			profiler.lap()
 		}
 
-		profiler.printAverage()
+		println(profiler.average)
 	}
 
 	/**
@@ -349,7 +348,7 @@ class GraphElectricTest {
 			battery.setVoltage(voltage)
 
 			val profiler = new Profiler("Solve circuit with " + trial + " resistors")
-			graph.update(profiler.delta)
+			graph.update(profiler.elapsed)
 			println(profiler)
 
 			val current = voltage / trial.toDouble
