@@ -1,6 +1,6 @@
 package com.calclavia.graph.core.base
 
-import java.util.{List => JLIst}
+import java.util.{List => JList, Set => JSet}
 
 import com.calclavia.graph.api.Node
 import com.calclavia.graph.api.graph.Graph
@@ -25,7 +25,12 @@ abstract class GraphConnect[N <: Node[_]] extends Graph[N] {
 	}
 
 	//TODO: Collection?
-	override def getNodes: JLIst[N] = nodes.toList
+	override def getNodes: JList[N] = nodes.toList
+
+	/**
+	 * Find all nodes that are connected to a node
+	 */
+	def findAll(node: N, builder: Set[N] = Set.empty): Set[N] = node.connections().filterNot(builder.contains(_)).flatMap(n => findAll(n.asInstanceOf[N], builder + node)).toSet
 
 	def build() {
 		adjMat = new AdjacencyMatrix[N](nodes, nodes)

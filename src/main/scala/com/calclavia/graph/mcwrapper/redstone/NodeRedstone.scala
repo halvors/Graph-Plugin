@@ -9,6 +9,7 @@ import com.resonant.lib.wrapper.WrapFunctions._
 import net.minecraft.world.World
 import nova.core.block.Block
 import nova.core.block.Block.NeighborChangeEvent
+import nova.core.component.Component
 import nova.wrapper.mc1710.wrapper.block.world.BWWorld
 
 /**
@@ -16,7 +17,7 @@ import nova.wrapper.mc1710.wrapper.block.world.BWWorld
  * @author Calclavia
  */
 //TODO: Create NodeVirtualRedstone (for MC blocks that are redstone, but don't implement NOVA)
-class NodeRedstone(parent: Block) extends api.energy.NodeRedstone with NodeBlockConnect[api.energy.NodeRedstone] {
+class NodeRedstone(parent: Block) extends Component with api.energy.NodeRedstone with NodeBlockConnect[api.energy.NodeRedstone] {
 
 	override protected val block: Block = parent
 	var init = false

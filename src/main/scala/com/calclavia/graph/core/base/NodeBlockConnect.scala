@@ -1,5 +1,6 @@
 package com.calclavia.graph.core.base
 
+import java.util.function.Supplier
 import java.util.{Map => JMap, Optional, Set => JSet}
 
 import com.calclavia.graph.api.Node
@@ -15,23 +16,21 @@ import scala.collection.convert.wrapAll._
  * @author Calclavia
  */
 trait NodeBlockConnect[N <: Node[N]] extends NodeConnect[N] {
-	protected val block: Block
-	//TODO: Remove
-	protected var connectedMap: JMap[N, Direction] = null
+
+	protected def block: Block
 
 	//TODO: Expose to Java side
-	protected var getConnections: () => JSet[N] = () => {
-		val adjacentBlocks: Map[Direction, Optional[Block]] = getAdjacentBlocks
+	protected var connectionFunction: () => JSet[N] = () => {
+		val adjacentBlocks: Map[Direction, Optional[Block]] = this.adjacentBlocks
 		val adjacentNodes: Map[Direction, N] =
 			adjacentBlocks
 				.filter { case (k, v) => v.isPresent && v.get.getClass().isAssignableFrom(compareClass) }
 				.map { case (k, v) => (k, getNodeFromBlock(v.get(), k)) }
 
-		connectedMap = adjacentNodes
+		val connectedMap = adjacentNodes
 			.filter { case (k, v) => canConnect(v, k) }
 			.filter { case (k, v) => v.asInstanceOf[NodeConnect[N]].canConnect(this.asInstanceOf[N], k.opposite) }
 			.map(_.swap)
-			.asInstanceOf[JMap[N, Direction]]
 
 		connectedMask = connectedMap.values
 			.map(_.ordinal)
@@ -42,13 +41,21 @@ trait NodeBlockConnect[N <: Node[N]] extends NodeConnect[N] {
 	}
 
 	def setConnectionHandler(conFunction: () => JSet[N]): this.type = {
-		getConnections = conFunction
+		connectionFunction = conFunction
 		return this
 	}
 
-	def connections: JSet[N] = getConnections()
+	def setConnections(f: Supplier[Set[N]]) {
+		connectionFunction = () => f.get()
+	}
 
-	protected def getAdjacentBlocks: Map[Direction, Optional[Block]] = Direction.DIRECTIONS.map(dir => (dir, world.getBlock(position + dir.toVector))).toMap
+	def setConnections(f: () => Set[N]) {
+		connectionFunction = () => f.apply()
+	}
+
+	def connections: JSet[N] = connectionFunction()
+
+	protected def adjacentBlocks: Map[Direction, Optional[Block]] = Direction.DIRECTIONS.map(dir => (dir, world.getBlock(position + dir.toVector))).toMap
 
 	def world: World = block.world()
 
