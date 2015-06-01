@@ -3,7 +3,7 @@ package com.calclavia.graph.matrix
 import scala.Numeric.Implicits._
 
 /**
- * A general sparse matrix with generic keys and values.
+ * A general sparse matrix with generic input and values.
  * @author Calclavia
  */
 object SparseMatrix {
